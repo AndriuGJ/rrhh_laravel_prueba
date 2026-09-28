@@ -1,0 +1,69 @@
+# Blueprint de Render: https://render.com/docs/blueprint-spec
+# Uso: Render > New > Blueprint > conectar el repositorio.
+#
+# Secretos que se cargan a mano en el dashboard (sync: false):
+#   APP_KEY      -> generar con:  php artisan key:generate --show
+#   QR_API_TOKEN -> el mismo token de tu .env local
+
+databases:
+  - name: rrhh-planillas-db
+    plan: free
+    databaseName: planillas
+    user: planillas
+
+services:
+  - type: web
+    name: rrhh-planillas
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /up
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        value: https://rrhh-planillas.onrender.com
+      - key: APP_KEY
+        sync: false
+      - key: QR_API_TOKEN
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: rrhh-planillas-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: rrhh-planillas-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: rrhh-planillas-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: rrhh-planillas-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: rrhh-planillas-db
+          property: password
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
+      - key: PHP_CLI_SERVER_WORKERS
+        value: "4"
+      # Arranque del contenedor (docker/entrypoint.sh)
+      - key: OPTIMIZE_ON_BOOT
+        value: "true"
+      - key: MIGRATE_ON_BOOT
+        value: "true"
+      # Poner en "true" solo en el primer deploy y volver a "false" en el segundo:
+      # los seeders no son idempotentes.
+      - key: SEED_ON_BOOT
+        value: "true"

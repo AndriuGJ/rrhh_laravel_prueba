@@ -1,0 +1,59 @@
+Resumen de Estilos y Diseño para Migración a Laravel
+Paleta de Colores (Tailwind CSS personalizado)
+/* Colores base - CSS Variables */
+--brand-black-500: #0a0908      /* Negro principal */
+--brand-black-600: #423b35      /* Marrón oscuro */
+--brand-jet-500: #22333b        /* Azul oscuro/gris azulado */
+--brand-jet-400: #1b282f        /* Azul más oscuro */
+--brand-jet-700: #608ea3        /* Azul claro */
+--brand-almond-500: #eae0d5     /* Crema almonds */
+--brand-almond-800: #f7f3ef     /* Crema claro */
+--brand-almond-900: #fbf9f7     /* Casi blanco */
+--brand-khaki-500: #c6ac8f      /* Khaki/dorado */
+--brand-khaki-700: #ddcebc      /* Khaki claro */
+--brand-stone-500: #5e503f      /* Marrón piedra */
+--brand-stone-700: #ab9880      /* Marrón claro */
+Configuración Tailwind (en header.php)
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                jet: '#3a3e4d',
+                slate: '#5f6a7d',
+                accent: '#4a86e8',
+                palette: {
+                    // black, jet_black, almond_cream, khaki_beige, stone_brown
+                }
+            },
+            fontFamily: {
+                sans: ['"Open Sans"', 'ui-sans-serif', 'system-ui']
+            }
+        }
+    }
+}
+Estructura Visual
+Elemento	Estilo
+Body	background-color: var(--brand-almond-900)
+Navbar	Gradiente: brand-black-500 → brand-jet-500 → brand-stone-500 con sombra
+Cards	Glass effect: bg-white/72, backdrop-blur(20px), border-white/40
+Textos	text-[var(--brand-black-500)] para contenido
+Labels	Uppercase, tracking-[0.4em-0.6em], color brand-jet-500
+Layout del Dashboard
+Hero Header: Gradiente oscuro con logo MDP y botones de acción
+Stats Cards: 4 columnas (Personal total, activo, asistencia hoy, planillas)
+Asistencia Cards: Tardanzas, Faltas, Licencias con chips de color
+Últimas Boletas: Lista con nombre, período y neto a pagar
+Acciones Rápidas: Botones para nuevo personal, reportes, control asistencia
+Tipografía
+Font: Open Sans (Google Fonts)
+Headers: text-2xl-4xl font-semibold
+Labels: text-[0.55rem] uppercase tracking-[0.5em-0.8em]
+Body: text-sm, text-base
+Componentes UI
+Tablas: DataTables con estilos personalizados Tailwind
+Forms: Bordes rgba(34,51,59,0.3), bg-white/95
+Buttons: Variantes outline y filled con colores khaki/jet
+Badges: Pills con tracking-[0.4em] uppercase
+Footer
+Gradiente oscuro con links de navegación
+Grid de 3 columnas (info, nav, contacto)
